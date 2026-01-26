@@ -17,11 +17,10 @@ concurrency:
   group: "pages"
   cancel-in-progress: false
 
+# Content repo to pull Markdown from
 env:
-  # Where your Markdown content lives (owner/name)
-  # Configure these in GitHub: Settings → Secrets and variables → Actions → Variables
-  NOTES_CONTENT_REPO: ${{ vars.NOTES_CONTENT_REPO }}
-  NOTES_CONTENT_REF: ${{ vars.NOTES_CONTENT_REF }}
+  NOTES_CONTENT_REPO: Zilong-L/notes_content
+  NOTES_CONTENT_REF: main
 
 jobs:
   build:
@@ -30,24 +29,12 @@ jobs:
       - name: Checkout site repo
         uses: actions/checkout@v4
 
-      # If notes_content is public, default GITHUB_TOKEN is fine.
-      # If notes_content is private, set repo secret NOTES_CONTENT_CHECKOUT_TOKEN.
-      - name: Checkout notes_content repo (public)
-        if: ${{ secrets.NOTES_CONTENT_CHECKOUT_TOKEN == '' }}
+      - name: Checkout notes_content repo
         uses: actions/checkout@v4
         with:
           repository: ${{ env.NOTES_CONTENT_REPO }}
           ref: ${{ env.NOTES_CONTENT_REF }}
           path: __notes_content
-
-      - name: Checkout notes_content repo (private)
-        if: ${{ secrets.NOTES_CONTENT_CHECKOUT_TOKEN != '' }}
-        uses: actions/checkout@v4
-        with:
-          repository: ${{ env.NOTES_CONTENT_REPO }}
-          ref: ${{ env.NOTES_CONTENT_REF }}
-          path: __notes_content
-          token: ${{ secrets.NOTES_CONTENT_CHECKOUT_TOKEN }}
 
       - name: Sync content into Hugo site
         run: |
