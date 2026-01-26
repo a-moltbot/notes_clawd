@@ -15,6 +15,8 @@ This repo intentionally keeps styling small and theme-like (no Tailwind runtime)
 - `--bg`: `#101622`
 - `--panel`: `#141c2a`
 - `--panel2`: `#171f2e`
+- `--parchment`: `#fdf6e3` (light content area)
+- `--ink`: `#2d2d2d` (text on parchment)
 - `--fg`: `rgba(255,255,255,0.92)`
 - `--muted`: `rgba(255,255,255,0.70)`
 - `--border`: `#282e39`
@@ -22,9 +24,10 @@ This repo intentionally keeps styling small and theme-like (no Tailwind runtime)
 
 ### Typography
 - Display/body: **Plus Jakarta Sans** (Google Fonts)
+- Icons: **Material Symbols Outlined** (Google Fonts)
 - Monospace: system monospace stack
 - Body line-height: `1.7`
-- Content line length: `max-width: 75ch`
+- Content line length: `max-width: 75ch` (for non-parchment pages)
 
 ### Radius & borders
 - `--radius`: `8px`
@@ -38,6 +41,10 @@ This repo intentionally keeps styling small and theme-like (no Tailwind runtime)
 - `.site-header` – sticky top bar with primary bottom border
 - `.pixel-button` – nav/button style (active state: translateY(2px))
 - `.dither-bg` – dither texture utility
+- `.pixel-border` / `.pixel-border-light` – pixel box-shadow border utilities
+- `.parchment` – light content area for markdown preview pages
+- `.breadcrumbs` – single page breadcrumbs
+- `.side-card` – sidebar sections (tag inventory + related posts)
 - `.hero` – intro section
 - `.card` – container panels
 - `.post-item` – list rows

@@ -1,25 +1,98 @@
 {{ define "main" }}
-  <article class="card">
-    <div class="meta">
-      <span class="muted">{{ .Date.Format "2006-01-02" }}</span>
-      {{ with .Params.tags }}
-        <span class="sep">·</span>
-        <span class="tags">
-          {{ range . }}
-            <a class="tag" href="{{ (printf "tags/%s/" (. | urlize)) | relURL }}">#{{ . }}</a>
+  <div class="layout">
+    <article class="content-col">
+      <nav class="breadcrumbs" aria-label="Breadcrumb">
+        <a class="crumb" href="{{ .Site.Home.RelPermalink }}">Home</a>
+        {{ with .Section }}
+          <span class="crumb-sep material-symbols-outlined" aria-hidden="true">chevron_right</span>
+          <a class="crumb" href="{{ (printf "%s/" .) | relURL }}">{{ . | title }}</a>
+        {{ end }}
+        <span class="crumb-sep material-symbols-outlined" aria-hidden="true">chevron_right</span>
+        <span class="crumb-current">{{ .Title }}</span>
+      </nav>
+
+      <header class="post-head">
+        <h1 class="post-h1">{{ .Title }}</h1>
+
+        <div class="post-meta">
+          <span class="meta-item">
+            <span class="material-symbols-outlined" aria-hidden="true">calendar_month</span>
+            {{ .Date.Format "2006-01-02" }}
+          </span>
+          <span class="meta-item">
+            <span class="material-symbols-outlined" aria-hidden="true">schedule</span>
+            {{ .ReadingTime }} min read
+          </span>
+
+          {{ with .Params.tags }}
+            <span class="meta-item">
+              <span class="material-symbols-outlined" aria-hidden="true">sell</span>
+              <span class="tags">
+                {{ range . }}
+                  <a class="tag" href="{{ (printf "tags/%s/" (. | urlize)) | relURL }}">#{{ . }}</a>
+                {{ end }}
+              </span>
+            </span>
           {{ end }}
-        </span>
+        </div>
+      </header>
+
+      <section class="parchment pixel-border">
+        <div class="parchment-corner dither-bg" aria-hidden="true"></div>
+        <div class="prose">
+          {{ .Content }}
+        </div>
+
+        <nav class="post-nav" aria-label="Post navigation">
+          {{ with .PrevInSection }}
+            <a class="pixel-button pixel-button-muted" href="{{ .RelPermalink }}">
+              <span class="material-symbols-outlined" aria-hidden="true">arrow_back</span>
+              Previous
+            </a>
+          {{ end }}
+          {{ with .NextInSection }}
+            <a class="pixel-button pixel-button-primary" href="{{ .RelPermalink }}">
+              Next
+              <span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span>
+            </a>
+          {{ end }}
+        </nav>
+      </section>
+    </article>
+
+    <aside class="sidebar" aria-label="Sidebar">
+      <section class="side-card">
+        <h3 class="side-title">
+          <span class="material-symbols-outlined" aria-hidden="true">inventory_2</span>
+          Inventory Tags
+        </h3>
+        <div class="side-tags">
+          {{ range site.Taxonomies.tags.ByCount }}
+            <a class="side-tag" href="{{ .Page.RelPermalink }}">
+              <span class="side-tag-dot dither-bg" aria-hidden="true"></span>
+              <span class="side-tag-text">#{{ .Page.Title }}</span>
+              <span class="side-tag-count">({{ .Count }})</span>
+            </a>
+          {{ end }}
+        </div>
+      </section>
+
+      {{ $relatedAll := where site.RegularPages "Section" .Section }}
+      {{ $relatedAll = where $relatedAll "Permalink" "ne" .Permalink }}
+      {{ $related := first 3 $relatedAll.ByDate.Reverse }}
+      {{ with $related }}
+        <section class="side-card">
+          <h3 class="side-title">Related Quests</h3>
+          <div class="related">
+            {{ range . }}
+              <a class="related-item" href="{{ .RelPermalink }}">
+                <div class="related-title">{{ .Title }}</div>
+                <div class="related-meta">{{ .Date.Format "2006-01-02" }} • {{ .ReadingTime }} min read</div>
+              </a>
+            {{ end }}
+          </div>
+        </section>
       {{ end }}
-    </div>
-
-    <h2 class="title">{{ .Title }}</h2>
-
-    <div class="content">
-      {{ .Content }}
-    </div>
-  </article>
-
-  <div class="back">
-    <a href="{{ .Site.Home.RelPermalink }}">← Back home</a>
+    </aside>
   </div>
 {{ end }}
