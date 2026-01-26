@@ -4,6 +4,9 @@ on:
   push:
     branches: ["main"]
   workflow_dispatch:
+  # Triggered by notes_content repo
+  repository_dispatch:
+    types: [notes-content-updated]
 
 permissions:
   contents: read
@@ -14,12 +17,33 @@ concurrency:
   group: "pages"
   cancel-in-progress: false
 
+env:
+  # Where your Markdown content lives (owner/name)
+  NOTES_CONTENT_REPO: ${{ vars.NOTES_CONTENT_REPO || 'Zilong-L/notes_content' }}
+  NOTES_CONTENT_REF: ${{ vars.NOTES_CONTENT_REF || 'main' }}
+
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
+      - name: Checkout site repo
         uses: actions/checkout@v4
+
+      - name: Checkout notes_content repo
+        uses: actions/checkout@v4
+        with:
+          repository: ${{ env.NOTES_CONTENT_REPO }}
+          ref: ${{ env.NOTES_CONTENT_REF }}
+          path: __notes_content
+
+      - name: Sync content into Hugo site
+        run: |
+          if [ ! -d "__notes_content/content" ]; then
+            echo "::error::notes_content repo is missing a content/ directory"
+            exit 1
+          fi
+          mkdir -p content
+          rsync -a --delete __notes_content/content/ content/
 
       - name: Setup Pages
         id: pages

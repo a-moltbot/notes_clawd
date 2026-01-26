@@ -3,5 +3,11 @@
 /resources/
 .hugo_build.lock
 
+# External content repo checkout (local + CI)
+/__notes_content/
+
+# Content is sourced from notes_content (do not edit here)
+/content/
+
 # OS
 .DS_Store
