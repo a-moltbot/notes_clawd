@@ -1,27 +1,25 @@
 {{ define "main" }}
-  <section class="card">
-    <div class="meta">
-      <a class="muted" href="{{ "tags/" | relURL }}">← All tags</a>
-    </div>
+  {{/*
+    We intentionally keep tag interaction on /tags/ (terms page):
+    selecting a tag highlights it and updates the posts list below,
+    without a separate "back" navigation flow.
 
-    <h2 class="title">Tag: #{{ .Title }}</h2>
+    This taxonomy page exists for direct URLs like /tags/linux/.
+    Redirect it to /tags/#linux.
+  */}}
 
-    <ul class="post-list">
-      {{ range .Pages.ByDate.Reverse }}
-        <li class="post-item">
-          <div class="post-main">
-            <a class="post-title" href="{{ .RelPermalink }}">{{ .Title }}</a>
-            <div class="muted small">{{ .Date.Format "2006-01-02" }}</div>
-          </div>
-          {{ with .Params.tags }}
-            <div class="tags">
-              {{ range . }}
-                <a class="tag" href="{{ (printf "tags/#%s" (. | urlize)) | relURL }}">#{{ . }}</a>
-              {{ end }}
-            </div>
-          {{ end }}
-        </li>
-      {{ end }}
-    </ul>
-  </section>
+  <script>
+    (function () {
+      var target = "{{ "tags/" | relURL }}#{{ .Title | urlize }}";
+      if (typeof window !== "undefined") window.location.replace(target);
+    })();
+  </script>
+
+  <noscript>
+    <section class="card">
+      <h2 class="title">Tag: #{{ .Title }}</h2>
+      <p class="muted">JavaScript is required for the interactive tags page.</p>
+      <p><a class="pixel-button" href="{{ (printf "tags/#%s" (.Title | urlize)) | relURL }}">Go to /tags/</a></p>
+    </section>
+  </noscript>
 {{ end }}
