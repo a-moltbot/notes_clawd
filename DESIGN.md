@@ -35,6 +35,9 @@ This repo intentionally keeps styling small and theme-like (no Tailwind runtime)
 - Focus ring: `outline: 3px solid rgba(19, 91, 236, 0.55)`
 
 ## Components
+- `.site-header` – sticky top bar with primary bottom border
+- `.pixel-button` – nav/button style (active state: translateY(2px))
+- `.dither-bg` – dither texture utility
 - `.hero` – intro section
 - `.card` – container panels
 - `.post-item` – list rows

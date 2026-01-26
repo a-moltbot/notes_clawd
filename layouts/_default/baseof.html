@@ -10,21 +10,25 @@
     <link rel="stylesheet" href="{{ "css/style.css" | relURL }}" />
   </head>
   <body>
-    <header class="wrap header">
-      <div class="brand">
-        <div class="logo">n</div>
-        <div>
-          <h1 class="site-title"><a href="{{ .Site.Home.RelPermalink }}">{{ .Site.Title }}</a></h1>
-          <p class="site-sub">Hugo demo notes · deployed with GitHub Pages</p>
+    <header class="site-header">
+      <div class="wrap header">
+      <div class="header-row">
+        <div class="brand">
+          <div class="logo dither-bg">n</div>
+          <div>
+            <h1 class="site-title"><a href="{{ .Site.Home.RelPermalink }}">{{ .Site.Title }}</a></h1>
+            <p class="site-sub">Hugo demo notes · deployed with GitHub Pages</p>
+          </div>
         </div>
-      </div>
 
-      <nav class="nav">
-        <a href="{{ .Site.Home.RelPermalink }}">Home</a>
-        <a href="{{ "posts/" | relURL }}">Posts</a>
-        <a href="{{ "tags/" | relURL }}">Tags</a>
-        <a href="https://github.com/{{ .Site.Params.githubRepo }}" target="_blank" rel="noreferrer">GitHub</a>
-      </nav>
+        <nav class="nav">
+          <a class="pixel-button" href="{{ .Site.Home.RelPermalink }}">Home</a>
+          <a class="pixel-button" href="{{ "posts/" | relURL }}">Posts</a>
+          <a class="pixel-button" href="{{ "tags/" | relURL }}">Tags</a>
+          <a class="pixel-button" href="https://github.com/{{ .Site.Params.githubRepo }}" target="_blank" rel="noreferrer">GitHub</a>
+        </nav>
+      </div>
+      </div>
     </header>
 
     <main class="wrap">
