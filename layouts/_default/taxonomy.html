@@ -1,7 +1,7 @@
 {{ define "main" }}
   <section class="card">
     <div class="meta">
-      <a class="muted" href="{{ "/tags/" | relURL }}">← All tags</a>
+      <a class="muted" href="{{ "tags/" | relURL }}">← All tags</a>
     </div>
 
     <h2 class="title">Tag: #{{ .Title }}</h2>
@@ -16,7 +16,7 @@
           {{ with .Params.tags }}
             <div class="tags">
               {{ range . }}
-                <a class="tag" href="{{ (printf "/tags/%s/" (. | urlize)) | relURL }}">#{{ . }}</a>
+                <a class="tag" href="{{ (printf "tags/%s/" (. | urlize)) | relURL }}">#{{ . }}</a>
               {{ end }}
             </div>
           {{ end }}

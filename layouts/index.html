@@ -3,8 +3,8 @@
     <h2>Welcome</h2>
     <p class="muted">A tiny notes site to demonstrate Markdown + Tags + GitHub Pages Actions.</p>
     <div class="cta-row">
-      <a class="btn" href="{{ "/posts/" | relURL }}">Browse posts</a>
-      <a class="btn btn-ghost" href="{{ "/tags/" | relURL }}">Explore tags</a>
+      <a class="btn" href="{{ "posts/" | relURL }}">Browse posts</a>
+      <a class="btn btn-ghost" href="{{ "tags/" | relURL }}">Explore tags</a>
     </div>
   </section>
 
@@ -20,7 +20,7 @@
           {{ with .Params.tags }}
             <div class="tags">
               {{ range . }}
-                <a class="tag" href="{{ (printf "/tags/%s/" (. | urlize)) | relURL }}">#{{ . }}</a>
+                <a class="tag" href="{{ (printf "tags/%s/" (. | urlize)) | relURL }}">#{{ . }}</a>
               {{ end }}
             </div>
           {{ end }}
