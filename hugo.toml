@@ -1,0 +1,6 @@
+baseURL = "/"
+languageCode = "en-us"
+title = "notes_clawd"
+enableRobotsTXT = true
+
+disableKinds = ["taxonomy", "term"]

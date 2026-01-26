@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{{ if .IsHome }}{{ .Site.Title }}{{ else }}{{ .Title }} | {{ .Site.Title }}{{ end }}</title>
+    <link rel="stylesheet" href="{{ "css/style.css" | relURL }}" />
+  </head>
+  <body>
+    <header class="wrap">
+      <h1 class="site-title"><a href="{{ "/" | relURL }}">{{ .Site.Title }}</a></h1>
+      <p class="site-sub">A tiny Hugo + GitHub Pages demo.</p>
+      <hr />
+    </header>
+
+    <main class="wrap">
+      {{ block "main" . }}{{ end }}
+    </main>
+
+    <footer class="wrap">
+      <hr />
+      <p class="muted">Built with Hugo · {{ now.Format "2006" }}</p>
+    </footer>
+  </body>
+</html>
