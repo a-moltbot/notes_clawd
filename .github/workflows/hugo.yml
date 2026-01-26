@@ -19,8 +19,9 @@ concurrency:
 
 env:
   # Where your Markdown content lives (owner/name)
-  NOTES_CONTENT_REPO: ${{ vars.NOTES_CONTENT_REPO || 'Zilong-L/notes_content' }}
-  NOTES_CONTENT_REF: ${{ vars.NOTES_CONTENT_REF || 'main' }}
+  # Configure these in GitHub: Settings → Secrets and variables → Actions → Variables
+  NOTES_CONTENT_REPO: ${{ vars.NOTES_CONTENT_REPO }}
+  NOTES_CONTENT_REF: ${{ vars.NOTES_CONTENT_REF }}
 
 jobs:
   build:
