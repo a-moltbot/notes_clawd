@@ -29,7 +29,7 @@
               <span class="material-symbols-outlined" aria-hidden="true">sell</span>
               <span class="tags">
                 {{ range . }}
-                  <a class="tag" href="{{ (printf "tags/%s/" (. | urlize)) | relURL }}">#{{ . }}</a>
+                  <a class="tag" href="{{ (printf "tags/#%s" (. | urlize)) | relURL }}">#{{ . }}</a>
                 {{ end }}
               </span>
             </span>
@@ -44,18 +44,27 @@
         </div>
 
         <nav class="post-nav" aria-label="Post navigation">
-          {{ with .PrevInSection }}
-            <a class="pixel-button pixel-button-muted" href="{{ .RelPermalink }}">
-              <span class="material-symbols-outlined" aria-hidden="true">arrow_back</span>
-              Previous
-            </a>
-          {{ end }}
-          {{ with .NextInSection }}
-            <a class="pixel-button pixel-button-primary" href="{{ .RelPermalink }}">
-              Next
-              <span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span>
-            </a>
-          {{ end }}
+          <div class="post-nav-left">
+            {{ with .PrevInSection }}
+              <a class="pixel-button pixel-button-muted" href="{{ .RelPermalink }}">
+                <span class="material-symbols-outlined" aria-hidden="true">arrow_back</span>
+                Previous
+              </a>
+            {{ else }}
+              <span class="post-nav-ghost pixel-button" aria-hidden="true">Previous</span>
+            {{ end }}
+          </div>
+
+          <div class="post-nav-right">
+            {{ with .NextInSection }}
+              <a class="pixel-button pixel-button-primary" href="{{ .RelPermalink }}">
+                Next
+                <span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span>
+              </a>
+            {{ else }}
+              <span class="post-nav-ghost pixel-button" aria-hidden="true">Next</span>
+            {{ end }}
+          </div>
         </nav>
       </section>
     </article>
@@ -68,7 +77,7 @@
         </h3>
         <div class="side-tags">
           {{ range site.Taxonomies.tags.ByCount }}
-            <a class="side-tag" href="{{ .Page.RelPermalink }}">
+            <a class="side-tag" href="{{ (printf "tags/#%s" (.Page.Title | urlize)) | relURL }}">
               <span class="side-tag-dot dither-bg" aria-hidden="true"></span>
               <span class="side-tag-text">#{{ .Page.Title }}</span>
               <span class="side-tag-count">({{ .Count }})</span>

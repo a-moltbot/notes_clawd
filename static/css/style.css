@@ -74,8 +74,8 @@ a:hover { text-decoration: underline; }
   z-index: 50;
   background: rgba(16, 22, 34, 0.92);
   backdrop-filter: blur(10px);
-  border-bottom: 4px solid var(--primary);
 }
+
 
 .header { padding-top: 18px; padding-bottom: 12px; }
 
@@ -152,7 +152,7 @@ a:hover { text-decoration: underline; }
 .hero {
   margin: 10px 0 18px;
   padding: 18px;
-  border-radius: var(--radius-lg);
+  border-radius: 0;
   border: 2px solid var(--border);
   background: rgba(16, 22, 34, 0.55);
   box-shadow: var(--shadow-soft);
@@ -163,22 +163,24 @@ a:hover { text-decoration: underline; }
 .btn {
   display: inline-block;
   padding: 10px 14px;
-  border-radius: 12px;
+  border-radius: 0;
   background: var(--primary);
   color: white;
-  font-weight: 700;
+  font-weight: 900;
   border: 2px solid var(--border);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
 }
 .btn:hover { filter: brightness(1.05); }
 .btn-ghost {
   background: transparent;
-  border: 2px solid var(--border);
+  border: 2px solid var(--border2);
   color: var(--fg);
 }
 
 .card {
   padding: 18px;
-  border-radius: var(--radius-lg);
+  border-radius: 0;
   border: 2px solid var(--border);
   background: rgba(20, 28, 42, 0.78);
   box-shadow: var(--shadow-soft);
@@ -198,7 +200,7 @@ a:hover { text-decoration: underline; }
   justify-content: space-between;
   align-items: baseline;
   padding: 10px 12px;
-  border-radius: var(--radius);
+  border-radius: 0;
   border: 2px solid var(--border);
   background: rgba(255,255,255,0.03);
 }
@@ -211,11 +213,14 @@ a:hover { text-decoration: underline; }
   align-items: center;
   gap: 6px;
   padding: 4px 10px;
-  border-radius: 999px;
+  border-radius: 0;
   border: 2px solid var(--border);
   background: rgba(19, 91, 236, 0.12);
   color: var(--fg);
   font-size: 13px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
 }
 
 .tag-cloud { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 10px; }
@@ -314,6 +319,26 @@ a:hover { text-decoration: underline; }
   pointer-events: none;
 }
 
+/* Parchment overrides (so reused components read well on light background) */
+.parchment .muted { color: rgba(45, 45, 45, 0.62); }
+.parchment .post-item {
+  background: rgba(255,255,255,0.70);
+  border-color: rgba(40, 46, 57, 0.22);
+}
+.parchment .post-title { color: var(--ink); }
+.parchment .tag {
+  color: var(--ink);
+  border-color: rgba(40, 46, 57, 0.22);
+  background: rgba(19, 91, 236, 0.08);
+}
+
+.tag-panel-title {
+  margin: 0 0 12px;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: -0.01em;
+}
+
 /* Prose / Markdown */
 .prose { max-width: none; }
 .prose > p:first-of-type {
@@ -389,11 +414,15 @@ a:hover { text-decoration: underline; }
   margin-top: 26px;
   padding-top: 20px;
   border-top: 2px solid rgba(40, 46, 57, 0.12);
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
   gap: 12px;
-  justify-content: space-between;
+  align-items: start;
 }
+
+.post-nav-left { justify-self: start; }
+.post-nav-right { justify-self: end; }
+.post-nav-ghost { visibility: hidden; }
 
 /* Sidebar */
 .sidebar { position: relative; }
