@@ -12,7 +12,7 @@ This is a demo page rendered by **Hugo** and deployed with **GitHub Pages**.
 
 - Bold: **bold**
 - Italic: *italic*
-- Link: [GitHub](https://github.com)
+- Link: [GitHub](https://github.com/Zilong-L/notes_clawd)
 
 ## Code block
 

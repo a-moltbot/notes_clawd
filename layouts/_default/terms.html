@@ -1,0 +1,12 @@
+{{ define "main" }}
+  <section class="card">
+    <h2 class="title">Tags</h2>
+    <p class="muted">Click a tag to see matching notes.</p>
+
+    <div class="tag-cloud">
+      {{ range .Data.Terms.Alphabetical }}
+        <a class="tag" href="{{ .Page.RelPermalink }}">#{{ .Page.Title }} <span class="muted">({{ .Count }})</span></a>
+      {{ end }}
+    </div>
+  </section>
+{{ end }}

@@ -1,9 +1,25 @@
 {{ define "main" }}
-  <article>
-    <h2>{{ .Title }}</h2>
-    <p class="muted">{{ .Date.Format "2006-01-02" }}</p>
-    {{ .Content }}
+  <article class="card">
+    <div class="meta">
+      <span class="muted">{{ .Date.Format "2006-01-02" }}</span>
+      {{ with .Params.tags }}
+        <span class="sep">·</span>
+        <span class="tags">
+          {{ range . }}
+            <a class="tag" href="{{ (printf "/tags/%s/" (. | urlize)) | relURL }}">#{{ . }}</a>
+          {{ end }}
+        </span>
+      {{ end }}
+    </div>
+
+    <h2 class="title">{{ .Title }}</h2>
+
+    <div class="content">
+      {{ .Content }}
+    </div>
   </article>
 
-  <p><a href="{{ "/" | relURL }}">← Back home</a></p>
+  <div class="back">
+    <a href="{{ "/" | relURL }}">← Back home</a>
+  </div>
 {{ end }}

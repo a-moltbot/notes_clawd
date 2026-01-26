@@ -3,4 +3,10 @@ languageCode = "en-us"
 title = "notes_clawd"
 enableRobotsTXT = true
 
-disableKinds = ["taxonomy", "term"]
+[params]
+  githubRepo = "Zilong-L/notes_clawd"
+
+theme = ""
+
+[taxonomies]
+  tag = "tags"

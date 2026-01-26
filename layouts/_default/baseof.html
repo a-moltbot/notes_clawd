@@ -3,22 +3,32 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>{{ if .IsHome }}{{ .Site.Title }}{{ else }}{{ .Title }} | {{ .Site.Title }}{{ end }}</title>
+    <title>{{ if .IsHome }}{{ .Site.Title }}{{ else }}{{ .Title }} · {{ .Site.Title }}{{ end }}</title>
     <link rel="stylesheet" href="{{ "css/style.css" | relURL }}" />
   </head>
   <body>
-    <header class="wrap">
-      <h1 class="site-title"><a href="{{ "/" | relURL }}">{{ .Site.Title }}</a></h1>
-      <p class="site-sub">A tiny Hugo + GitHub Pages demo.</p>
-      <hr />
+    <header class="wrap header">
+      <div class="brand">
+        <div class="logo">n</div>
+        <div>
+          <h1 class="site-title"><a href="{{ "/" | relURL }}">{{ .Site.Title }}</a></h1>
+          <p class="site-sub">Hugo demo notes · deployed with GitHub Pages</p>
+        </div>
+      </div>
+
+      <nav class="nav">
+        <a href="{{ "/" | relURL }}">Home</a>
+        <a href="{{ "/posts/" | relURL }}">Posts</a>
+        <a href="{{ "/tags/" | relURL }}">Tags</a>
+        <a href="https://github.com/{{ .Site.Params.githubRepo }}" target="_blank" rel="noreferrer">GitHub</a>
+      </nav>
     </header>
 
     <main class="wrap">
       {{ block "main" . }}{{ end }}
     </main>
 
-    <footer class="wrap">
-      <hr />
+    <footer class="wrap footer">
       <p class="muted">Built with Hugo · {{ now.Format "2006" }}</p>
     </footer>
   </body>

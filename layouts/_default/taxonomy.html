@@ -1,17 +1,13 @@
 {{ define "main" }}
-  <section class="hero">
-    <h2>Welcome</h2>
-    <p class="muted">A tiny notes site to demonstrate Markdown + Tags + GitHub Pages Actions.</p>
-    <div class="cta-row">
-      <a class="btn" href="{{ "/posts/" | relURL }}">Browse posts</a>
-      <a class="btn btn-ghost" href="{{ "/tags/" | relURL }}">Explore tags</a>
-    </div>
-  </section>
-
   <section class="card">
-    <h3 class="title">Latest posts</h3>
+    <div class="meta">
+      <a class="muted" href="{{ "/tags/" | relURL }}">← All tags</a>
+    </div>
+
+    <h2 class="title">Tag: #{{ .Title }}</h2>
+
     <ul class="post-list">
-      {{ range first 6 site.RegularPages.ByDate.Reverse }}
+      {{ range .Pages.ByDate.Reverse }}
         <li class="post-item">
           <div class="post-main">
             <a class="post-title" href="{{ .RelPermalink }}">{{ .Title }}</a>
@@ -28,3 +24,4 @@
       {{ end }}
     </ul>
   </section>
+{{ end }}

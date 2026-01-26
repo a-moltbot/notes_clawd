@@ -1,11 +1,22 @@
 {{ define "main" }}
-  <h2>{{ .Title }}</h2>
-  <ul>
-    {{ range .Pages.ByDate.Reverse }}
-      <li>
-        <a href="{{ .RelPermalink }}">{{ .Title }}</a>
-        <span class="muted">— {{ .Date.Format "2006-01-02" }}</span>
-      </li>
-    {{ end }}
-  </ul>
+  <section class="card">
+    <h2 class="title">{{ .Title }}</h2>
+    <ul class="post-list">
+      {{ range .Pages.ByDate.Reverse }}
+        <li class="post-item">
+          <div class="post-main">
+            <a class="post-title" href="{{ .RelPermalink }}">{{ .Title }}</a>
+            <div class="muted small">{{ .Date.Format "2006-01-02" }}</div>
+          </div>
+          {{ with .Params.tags }}
+            <div class="tags">
+              {{ range . }}
+                <a class="tag" href="{{ (printf "/tags/%s/" (. | urlize)) | relURL }}">#{{ . }}</a>
+              {{ end }}
+            </div>
+          {{ end }}
+        </li>
+      {{ end }}
+    </ul>
+  </section>
 {{ end }}
