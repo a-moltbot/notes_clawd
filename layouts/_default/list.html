@@ -31,7 +31,7 @@
               {{ with .Params.tags }}
                 <div class="tags">
                   {{ range first 3 . }}
-                    <a class="tag" href="{{ (printf "tags/#%s" (. | urlize)) | relURL }}">#{{ . }}</a>
+                    <a class="tag" href="{{ (printf "home/#%s" (. | urlize)) | relURL }}">#{{ . }}</a>
                   {{ end }}
                 </div>
               {{ end }}
@@ -49,7 +49,7 @@
         </h3>
         <div class="side-tags">
           {{ range site.Taxonomies.tags.ByCount }}
-            <a class="side-tag" href="{{ (printf "tags/#%s" (.Page.Title | urlize)) | relURL }}">
+            <a class="side-tag" href="{{ (printf "home/#%s" (.Page.Title | urlize)) | relURL }}">
               <span class="side-tag-dot dither-bg" aria-hidden="true"></span>
               <span class="side-tag-text">#{{ .Page.Title }}</span>
               <span class="side-tag-count">({{ .Count }})</span>

@@ -1,10 +1,10 @@
 {{ define "main" }}
-  <!-- Redirect the site root to /tags/ (which acts as the Home page) -->
-  <meta http-equiv="refresh" content="0; url={{ "tags/" | relURL }}" />
-  <script>location.replace("{{ "tags/" | relURL }}");</script>
+  <!-- Redirect the site root to /home/ (Home = tag explorer) -->
+  <meta http-equiv="refresh" content="0; url={{ "home/" | relURL }}" />
+  <script>location.replace("{{ "home/" | relURL }}");</script>
 
   <section class="card">
     <p class="muted">Redirecting to Home…</p>
-    <p><a class="btn" href="{{ "tags/" | relURL }}">Go to Home</a></p>
+    <p><a class="btn" href="{{ "home/" | relURL }}">Go to Home</a></p>
   </section>
 {{ end }}

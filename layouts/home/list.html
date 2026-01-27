@@ -1,0 +1,155 @@
+{{ define "main" }}
+  {{ $terms := site.Taxonomies.tags.Alphabetical }}
+
+  <style>
+    /* Home (tag explorer) interaction (CSS-only with tiny hash sync) */
+    .tags-page > input[type="radio"] {
+      position: absolute;
+      left: -9999px;
+    }
+
+    .tags-panels .tag-panel { display: none; }
+
+    /* Default panel */
+    #tag-all:checked ~ .content-col #panel-all { display: block; }
+    #tag-all:checked ~ .sidebar label[for="tag-all"] {
+      border-color: var(--primary);
+      color: var(--fg);
+      background: rgba(19, 91, 236, 0.10);
+    }
+
+    {{ range $terms }}
+      {{ $k := .Page.Title | urlize }}
+      #tag-{{ $k }}:checked ~ .content-col #panel-{{ $k }} { display: block; }
+      #tag-{{ $k }}:checked ~ .sidebar label[for="tag-{{ $k }}"] {
+        border-color: var(--primary);
+        color: var(--fg);
+        background: rgba(19, 91, 236, 0.10);
+      }
+    {{ end }}
+  </style>
+
+  <div class="layout tags-page">
+    <input type="radio" name="tag" id="tag-all" checked>
+    {{ range $terms }}
+      {{ $k := .Page.Title | urlize }}
+      <input type="radio" name="tag" id="tag-{{ $k }}">
+    {{ end }}
+
+    <article class="content-col">
+      <header class="post-head">
+        <h1 class="post-h1">Home</h1>
+        <div class="post-meta">
+          <span class="meta-item">
+            <span class="material-symbols-outlined" aria-hidden="true">sell</span>
+            {{ len $terms }} tags
+          </span>
+          <span class="meta-item">
+            <span class="material-symbols-outlined" aria-hidden="true">description</span>
+            {{ len site.RegularPages }} posts
+          </span>
+        </div>
+      </header>
+
+      <section class="card pixel-border">
+        <div class="tags-panels">
+          <section id="panel-all" class="tag-panel">
+            <h2 class="tag-panel-title">All</h2>
+            <p class="muted">Pick a tag on the right to filter. You can switch tags without leaving this page.</p>
+
+            <ul class="post-list">
+              {{ range first 12 site.RegularPages.ByDate.Reverse }}
+                <li class="post-item {{ if .Params.cover }}has-cover{{ end }}">
+                  <a class="post-hit" href="{{ .RelPermalink }}" aria-label="Open {{ .Title }}"></a>
+
+                  {{ with .Params.cover }}
+                    <div class="post-cover" aria-hidden="true">
+                      <img class="post-cover-img" src="{{ . | relURL }}" alt="" loading="lazy" />
+                    </div>
+                  {{ end }}
+
+                  <div class="post-main">
+                    <a class="post-title" href="{{ .RelPermalink }}">{{ .Title }}</a>
+                    <div class="muted small">{{ .Date.Format "2006-01-02" }} • {{ .ReadingTime }} min read</div>
+                  </div>
+                </li>
+              {{ end }}
+            </ul>
+          </section>
+
+          {{ range $terms }}
+            {{ $k := .Page.Title | urlize }}
+            <section id="panel-{{ $k }}" class="tag-panel">
+              <h2 class="tag-panel-title">#{{ .Page.Title }} <span class="muted">({{ .Count }})</span></h2>
+
+              <ul class="post-list">
+                {{ range .Pages.ByDate.Reverse }}
+                  <li class="post-item {{ if .Params.cover }}has-cover{{ end }}">
+                    <a class="post-hit" href="{{ .RelPermalink }}" aria-label="Open {{ .Title }}"></a>
+
+                    {{ with .Params.cover }}
+                      <div class="post-cover" aria-hidden="true">
+                        <img class="post-cover-img" src="{{ . | relURL }}" alt="" loading="lazy" />
+                      </div>
+                    {{ end }}
+
+                    <div class="post-main">
+                      <a class="post-title" href="{{ .RelPermalink }}">{{ .Title }}</a>
+                      <div class="muted small">{{ .Date.Format "2006-01-02" }} • {{ .ReadingTime }} min read</div>
+                    </div>
+                  </li>
+                {{ end }}
+              </ul>
+            </section>
+          {{ end }}
+        </div>
+      </section>
+
+      <script>
+        (function () {
+          function pickFromHash() {
+            var key = (location.hash || "").replace(/^#/, "");
+            if (!key) return;
+            try { key = decodeURIComponent(key); } catch (e) {}
+            var input = document.getElementById("tag-" + key);
+            if (input) input.checked = true;
+          }
+
+          // Allow /home/#linux to preselect
+          pickFromHash();
+          window.addEventListener("hashchange", pickFromHash);
+
+          // Optional: clicking labels updates URL hash for shareable links
+          document.querySelectorAll(".tags-page .tag-tab").forEach(function (el) {
+            el.addEventListener("click", function () {
+              var key = el.getAttribute("data-tag");
+              if (!key) return;
+              location.hash = key;
+            });
+          });
+        })();
+      </script>
+    </article>
+
+    <aside class="sidebar" aria-label="Tags">
+      <section class="side-card">
+        <h3 class="side-title">
+          <span class="material-symbols-outlined" aria-hidden="true">inventory_2</span>
+          Inventory Tags
+        </h3>
+
+        <div class="side-tags">
+          <label class="side-tag tag-tab" for="tag-all" data-tag="all">All</label>
+          {{ range $terms }}
+            {{ $k := .Page.Title | urlize }}
+            <label class="side-tag tag-tab" for="tag-{{ $k }}" data-tag="{{ $k }}">
+              <span class="side-tag-dot dither-bg" aria-hidden="true"></span>
+              <span class="side-tag-text">#{{ .Page.Title }}</span>
+              <span class="side-tag-count">({{ .Count }})</span>
+            </label>
+          {{ end }}
+        </div>
+      </section>
+    </aside>
+  </div>
+{{ end }}

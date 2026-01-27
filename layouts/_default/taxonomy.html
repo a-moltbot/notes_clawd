@@ -5,12 +5,12 @@
     without a separate "back" navigation flow.
 
     This taxonomy page exists for direct URLs like /tags/linux/.
-    Redirect it to /tags/#linux.
+    Redirect it to /home/#linux.
   */}}
 
   <script>
     (function () {
-      var target = "{{ "tags/" | relURL }}#{{ .Title | urlize }}";
+      var target = "{{ "home/" | relURL }}#{{ .Title | urlize }}";
       if (typeof window !== "undefined") window.location.replace(target);
     })();
   </script>
@@ -19,7 +19,7 @@
     <section class="card">
       <h2 class="title">Tag: #{{ .Title }}</h2>
       <p class="muted">JavaScript is required for the interactive tags page.</p>
-      <p><a class="pixel-button" href="{{ (printf "tags/#%s" (.Title | urlize)) | relURL }}">Go to /tags/</a></p>
+      <p><a class="pixel-button" href="{{ (printf "home/#%s" (.Title | urlize)) | relURL }}">Go to /home/</a></p>
     </section>
   </noscript>
 {{ end }}
