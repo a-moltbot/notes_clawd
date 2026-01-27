@@ -6,3 +6,15 @@
 - [ ] Rename GitHub repo: `notes_clawd` → `notes_deploy`.
 - [ ] Rename site title to **"blogs"**.
 
+## UX / UI
+- [ ] Make post cards clickable as a whole block (not only the link text) in:
+  - `tags/`
+  - `posts/`
+  - `home/`
+- [ ] Unify tags main block styling: before entering an article, keep navigation pages consistent (same background + text color), instead of inheriting per-article colors.
+- [ ] Add cover image support for posts:
+  - If a post has a cover image → show a card with cover.
+  - If not → keep the current single-line post row.
+  - Layout can be mixed; card and row sizes may differ (need a reasonable grid/list strategy).
+- [ ] Improve **previous/next** readability (colors/contrast) — investigate and fix.
+
