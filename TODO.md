@@ -4,7 +4,7 @@
 - [ ] Update site **thumbnail** (social preview image / og:image).  
   - Notes: decide the new image asset + where it’s referenced (Hugo params / meta tags / static file path).
 - [ ] Rename GitHub repo: `notes_clawd` → `notes_deploy`.
-- [ ] Rename site title to **"blogs"**.
+- [x] Rename site title to **"blogs"**.
 
 ## UX / UI
 - [x] Make post cards clickable as a whole block (not only the link text) in:
@@ -19,5 +19,5 @@
 - [x] Improve **previous/next** readability (colors/contrast) — investigate and fix.
 - [x] Make date/meta text (e.g. `2026-01-26`) clickable as part of the post row (currently only link text works).
 - [x] Mobile layout: in home/posts/tags lists, move tags under the date, and limit tags to max 3; fix overflow on small screens.
-- [ ] Refactor **Home** and **Posts** pages to match the **Tags** page layout style (sidebar + main block style).
+- [x] Refactor **Home** and **Posts** pages to match the **Tags** page layout style (sidebar + main block style).
 

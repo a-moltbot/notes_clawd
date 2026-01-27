@@ -1,30 +1,62 @@
 {{ define "main" }}
-  <section class="card">
-    <h2 class="title">{{ .Title }}</h2>
-    <ul class="post-list">
-      {{ range .Pages.ByDate.Reverse }}
-        <li class="post-item {{ if .Params.cover }}has-cover{{ end }}">
-          <a class="post-hit" href="{{ .RelPermalink }}" aria-label="Open {{ .Title }}"></a>
+  <div class="layout">
+    <article class="content-col">
+      <header class="post-head">
+        <h1 class="post-h1">{{ .Title }}</h1>
+        <div class="post-meta">
+          <span class="meta-item">
+            <span class="material-symbols-outlined" aria-hidden="true">description</span>
+            {{ len .Pages }} posts
+          </span>
+        </div>
+      </header>
 
-          {{ with .Params.cover }}
-            <div class="post-cover" aria-hidden="true">
-              <img class="post-cover-img" src="{{ . | relURL }}" alt="" loading="lazy" />
-            </div>
-          {{ end }}
+      <section class="card pixel-border">
+        <ul class="post-list">
+          {{ range .Pages.ByDate.Reverse }}
+            <li class="post-item {{ if .Params.cover }}has-cover{{ end }}">
+              <a class="post-hit" href="{{ .RelPermalink }}" aria-label="Open {{ .Title }}"></a>
 
-          <div class="post-main">
-            <a class="post-title" href="{{ .RelPermalink }}">{{ .Title }}</a>
-            <div class="muted small">{{ .Date.Format "2006-01-02" }}</div>
-          </div>
-          {{ with .Params.tags }}
-            <div class="tags">
-              {{ range first 3 . }}
-                <a class="tag" href="{{ (printf "tags/#%s" (. | urlize)) | relURL }}">#{{ . }}</a>
+              {{ with .Params.cover }}
+                <div class="post-cover" aria-hidden="true">
+                  <img class="post-cover-img" src="{{ . | relURL }}" alt="" loading="lazy" />
+                </div>
               {{ end }}
-            </div>
+
+              <div class="post-main">
+                <a class="post-title" href="{{ .RelPermalink }}">{{ .Title }}</a>
+                <div class="muted small">{{ .Date.Format "2006-01-02" }}</div>
+              </div>
+
+              {{ with .Params.tags }}
+                <div class="tags">
+                  {{ range first 3 . }}
+                    <a class="tag" href="{{ (printf "tags/#%s" (. | urlize)) | relURL }}">#{{ . }}</a>
+                  {{ end }}
+                </div>
+              {{ end }}
+            </li>
           {{ end }}
-        </li>
-      {{ end }}
-    </ul>
-  </section>
+        </ul>
+      </section>
+    </article>
+
+    <aside class="sidebar" aria-label="Sidebar">
+      <section class="side-card">
+        <h3 class="side-title">
+          <span class="material-symbols-outlined" aria-hidden="true">inventory_2</span>
+          Inventory Tags
+        </h3>
+        <div class="side-tags">
+          {{ range site.Taxonomies.tags.ByCount }}
+            <a class="side-tag" href="{{ (printf "tags/#%s" (.Page.Title | urlize)) | relURL }}">
+              <span class="side-tag-dot dither-bg" aria-hidden="true"></span>
+              <span class="side-tag-text">#{{ .Page.Title }}</span>
+              <span class="side-tag-count">({{ .Count }})</span>
+            </a>
+          {{ end }}
+        </div>
+      </section>
+    </aside>
+  </div>
 {{ end }}

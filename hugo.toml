@@ -1,6 +1,6 @@
 baseURL = "/"
 languageCode = "en-us"
-title = "notes_clawd"
+title = "blogs"
 enableRobotsTXT = true
 
 [params]
