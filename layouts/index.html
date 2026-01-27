@@ -1,62 +1,10 @@
 {{ define "main" }}
-  <div class="layout">
-    <article class="content-col">
-      <section class="hero">
-        <h2>Welcome</h2>
-        <p class="muted">A tiny notes site to demonstrate Markdown + Tags + GitHub Pages Actions.</p>
-        <div class="cta-row">
-          <a class="btn" href="{{ "posts/" | relURL }}">Browse posts</a>
-          <a class="btn btn-ghost" href="{{ "tags/" | relURL }}">Explore tags</a>
-        </div>
-      </section>
+  <!-- Redirect the site root to /tags/ (which acts as the Home page) -->
+  <meta http-equiv="refresh" content="0; url={{ "tags/" | relURL }}" />
+  <script>location.replace("{{ "tags/" | relURL }}");</script>
 
-      <section class="card pixel-border">
-        <h3 class="title">Latest posts</h3>
-        <ul class="post-list">
-          {{ range first 12 site.RegularPages.ByDate.Reverse }}
-            <li class="post-item {{ if .Params.cover }}has-cover{{ end }}">
-              <a class="post-hit" href="{{ .RelPermalink }}" aria-label="Open {{ .Title }}"></a>
-
-              {{ with .Params.cover }}
-                <div class="post-cover" aria-hidden="true">
-                  <img class="post-cover-img" src="{{ . | relURL }}" alt="" loading="lazy" />
-                </div>
-              {{ end }}
-
-              <div class="post-main">
-                <a class="post-title" href="{{ .RelPermalink }}">{{ .Title }}</a>
-                <div class="muted small">{{ .Date.Format "2006-01-02" }}</div>
-              </div>
-
-              {{ with .Params.tags }}
-                <div class="tags">
-                  {{ range first 3 . }}
-                    <a class="tag" href="{{ (printf "tags/#%s" (. | urlize)) | relURL }}">#{{ . }}</a>
-                  {{ end }}
-                </div>
-              {{ end }}
-            </li>
-          {{ end }}
-        </ul>
-      </section>
-    </article>
-
-    <aside class="sidebar" aria-label="Sidebar">
-      <section class="side-card">
-        <h3 class="side-title">
-          <span class="material-symbols-outlined" aria-hidden="true">inventory_2</span>
-          Inventory Tags
-        </h3>
-        <div class="side-tags">
-          {{ range site.Taxonomies.tags.ByCount }}
-            <a class="side-tag" href="{{ (printf "tags/#%s" (.Page.Title | urlize)) | relURL }}">
-              <span class="side-tag-dot dither-bg" aria-hidden="true"></span>
-              <span class="side-tag-text">#{{ .Page.Title }}</span>
-              <span class="side-tag-count">({{ .Count }})</span>
-            </a>
-          {{ end }}
-        </div>
-      </section>
-    </aside>
-  </div>
+  <section class="card">
+    <p class="muted">Redirecting to Home…</p>
+    <p><a class="btn" href="{{ "tags/" | relURL }}">Go to Home</a></p>
+  </section>
 {{ end }}
