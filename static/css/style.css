@@ -204,6 +204,7 @@ a:hover { text-decoration: underline; }
   border-radius: 0;
   border: 2px solid var(--border);
   background: rgba(255,255,255,0.03);
+  flex-wrap: wrap; /* avoid mobile overflow */
 }
 
 /* Make the entire post row clickable, while keeping tag links clickable. */
@@ -223,7 +224,10 @@ a:hover { text-decoration: underline; }
   z-index: 2;
 }
 
-.post-main { min-width: 220px; }
+/* Let clicks on non-link text (e.g. date) fall through to the row link. */
+.post-main { min-width: 220px; pointer-events: none; }
+.post-main a { pointer-events: auto; }
+
 .post-title { font-weight: 700; color: var(--fg); }
 
 /* Optional cover image support via front matter: cover: "/images/xxx.jpg" */
@@ -246,7 +250,14 @@ a:hover { text-decoration: underline; }
   .post-cover-img { width: 120px; height: 78px; }
 }
 
-.tags { display: inline-flex; gap: 8px; flex-wrap: wrap; }
+.tags { display: inline-flex; gap: 8px; flex-wrap: wrap; max-width: 100%; }
+
+@media (max-width: 520px) {
+  /* On narrow screens: tags go under the title/date */
+  .post-item { align-items: flex-start; }
+  .post-item .tags { width: 100%; }
+}
+
 .tag {
   display: inline-flex;
   align-items: center;

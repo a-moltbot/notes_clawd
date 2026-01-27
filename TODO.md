@@ -17,4 +17,7 @@
   - If not → keep the current single-line post row.
   - Layout can be mixed; card and row sizes may differ (need a reasonable grid/list strategy).
 - [ ] Improve **previous/next** readability (colors/contrast) — investigate and fix.
+- [ ] Make date/meta text (e.g. `2026-01-26`) clickable as part of the post row (currently only link text works).
+- [ ] Mobile layout: in home/posts/tags lists, move tags under the date, and limit tags to max 3; fix overflow on small screens.
+- [ ] Refactor **Home** and **Posts** pages to match the **Tags** page layout style (sidebar + main block style).
 
