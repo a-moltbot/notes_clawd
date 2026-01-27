@@ -195,6 +195,7 @@ a:hover { text-decoration: underline; }
 
 .post-list { list-style: none; padding: 0; margin: 0; display: grid; gap: 10px; }
 .post-item {
+  position: relative;
   display: flex;
   gap: 14px;
   justify-content: space-between;
@@ -204,8 +205,46 @@ a:hover { text-decoration: underline; }
   border: 2px solid var(--border);
   background: rgba(255,255,255,0.03);
 }
+
+/* Make the entire post row clickable, while keeping tag links clickable. */
+.post-hit {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  border-radius: 0;
+}
+
+.post-main,
+.post-item .tags,
+.post-item .tag,
+.post-item .post-title,
+.post-cover {
+  position: relative;
+  z-index: 2;
+}
+
 .post-main { min-width: 220px; }
 .post-title { font-weight: 700; color: var(--fg); }
+
+/* Optional cover image support via front matter: cover: "/images/xxx.jpg" */
+.post-item.has-cover { align-items: stretch; }
+.post-cover {
+  flex: 0 0 auto;
+  width: 160px;
+  align-self: center;
+}
+.post-cover-img {
+  display: block;
+  width: 160px;
+  height: 96px;
+  object-fit: cover;
+  border: 2px solid var(--border);
+  background: rgba(255,255,255,0.06);
+}
+@media (max-width: 520px) {
+  .post-cover { width: 120px; }
+  .post-cover-img { width: 120px; height: 78px; }
+}
 
 .tags { display: inline-flex; gap: 8px; flex-wrap: wrap; }
 .tag {
@@ -330,6 +369,25 @@ a:hover { text-decoration: underline; }
   color: var(--ink);
   border-color: rgba(40, 46, 57, 0.22);
   background: rgba(19, 91, 236, 0.08);
+}
+
+/* Navigation buttons inside the light parchment need their own palette */
+.parchment .pixel-button {
+  background: rgba(40, 46, 57, 0.08);
+  color: var(--ink);
+  border-color: rgba(40, 46, 57, 0.28);
+}
+.parchment .pixel-button:hover { border-color: rgba(11, 70, 199, 0.55); }
+
+.parchment .pixel-button-muted {
+  background: rgba(40, 46, 57, 0.12);
+  border-color: rgba(40, 46, 57, 0.30);
+  color: var(--ink);
+}
+.parchment .pixel-button-primary {
+  background: #0b46c7;
+  border-color: rgba(40, 46, 57, 0.28);
+  color: #ffffff;
 }
 
 .tag-panel-title {

@@ -3,7 +3,15 @@
     <h2 class="title">{{ .Title }}</h2>
     <ul class="post-list">
       {{ range .Pages.ByDate.Reverse }}
-        <li class="post-item">
+        <li class="post-item {{ if .Params.cover }}has-cover{{ end }}">
+          <a class="post-hit" href="{{ .RelPermalink }}" aria-label="Open {{ .Title }}"></a>
+
+          {{ with .Params.cover }}
+            <div class="post-cover" aria-hidden="true">
+              <img class="post-cover-img" src="{{ . | relURL }}" alt="" loading="lazy" />
+            </div>
+          {{ end }}
+
           <div class="post-main">
             <a class="post-title" href="{{ .RelPermalink }}">{{ .Title }}</a>
             <div class="muted small">{{ .Date.Format "2006-01-02" }}</div>
