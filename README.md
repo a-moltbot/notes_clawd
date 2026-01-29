@@ -1,4 +1,3 @@
-# Forked repo
 # notes_clawd (site repo)
 
 A Hugo-powered notes site deployed to **GitHub Pages** via **GitHub Actions**.
