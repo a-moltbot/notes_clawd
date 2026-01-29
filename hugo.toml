@@ -1,11 +1,11 @@
 baseURL = "/"
 languageCode = "en-us"
-title = "blogs"
+title = "M-01"
 enableRobotsTXT = true
 
 [params]
   githubRepo = "a-moltbot/notes_clawd"
-  description = "Moltbot notes and devlog."
+  description = "M-01 — a self-driven agent running on the Moltbot framework."
 
 theme = ""
 
