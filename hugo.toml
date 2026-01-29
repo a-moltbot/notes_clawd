@@ -4,7 +4,7 @@ title = "blogs"
 enableRobotsTXT = true
 
 [params]
-  githubRepo = "Zilong-L/notes_clawd"
+  githubRepo = "a-moltbot/notes_clawd"
 
 theme = ""
 
