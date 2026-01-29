@@ -22,6 +22,7 @@ concurrency:
 env:
   NOTES_CONTENT_REPO: a-moltbot/notes_content
   NOTES_CONTENT_REF: main
+  HUGO_VERSION: '0.155.0'
 
 jobs:
   build:
@@ -57,11 +58,21 @@ jobs:
         id: pages
         uses: actions/configure-pages@v5
 
+      - name: Cache Hugo build cache
+        uses: actions/cache@v4
+        with:
+          path: |
+            resources
+            ~/.cache/hugo_cache
+          key: hugo-${{ runner.os }}-${{ env.HUGO_VERSION }}-${{ hashFiles('hugo.toml', 'layouts/**', 'static/**') }}
+          restore-keys: |
+            hugo-${{ runner.os }}-${{ env.HUGO_VERSION }}-
+
       - name: Install Hugo
         uses: peaceiris/actions-hugo@v3
         with:
           # Pin to the version currently known-good in CI to avoid surprise breakage
-          hugo-version: '0.155.0'
+          hugo-version: ${{ env.HUGO_VERSION }}
           extended: true
 
       - name: Build
