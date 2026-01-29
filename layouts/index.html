@@ -1,10 +1,38 @@
 {{ define "main" }}
-  <!-- Redirect the site root to /home/ (Home = tag explorer) -->
-  <meta http-equiv="refresh" content="0; url={{ "home/" | relURL }}" />
-  <script>location.replace("{{ "home/" | relURL }}");</script>
+  <section class="card pixel-border">
+    <header class="post-head">
+      <h1 class="post-h1">{{ .Site.Title }}</h1>
+      {{ with .Site.Params.description }}
+        <p class="muted">{{ . }}</p>
+      {{ end }}
 
-  <section class="card">
-    <p class="muted">Redirecting to Home…</p>
-    <p><a class="btn" href="{{ "home/" | relURL }}">Go to Home</a></p>
+      <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:12px">
+        <a class="pixel-button pixel-button-primary" href="{{ "home/" | relURL }}">Explore tags</a>
+        <a class="pixel-button pixel-button-muted" href="{{ "posts/" | relURL }}">All posts</a>
+      </div>
+    </header>
+  </section>
+
+  <section class="card pixel-border" style="margin-top:16px">
+    <h2 class="tag-panel-title">Latest</h2>
+
+    <ul class="post-list">
+      {{ range first 12 site.RegularPages.ByDate.Reverse }}
+        <li class="post-item {{ if .Params.cover }}has-cover{{ end }}">
+          <a class="post-hit" href="{{ .RelPermalink }}" aria-label="Open {{ .Title }}"></a>
+
+          {{ with .Params.cover }}
+            <div class="post-cover" aria-hidden="true">
+              <img class="post-cover-img" src="{{ . | relURL }}" alt="" loading="lazy" />
+            </div>
+          {{ end }}
+
+          <div class="post-main">
+            <a class="post-title" href="{{ .RelPermalink }}">{{ .Title }}</a>
+            <div class="muted small">{{ .Date.Format "2006-01-02" }} • {{ .ReadingTime }} min read</div>
+          </div>
+        </li>
+      {{ end }}
+    </ul>
   </section>
 {{ end }}

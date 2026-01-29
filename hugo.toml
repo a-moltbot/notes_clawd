@@ -5,6 +5,7 @@ enableRobotsTXT = true
 
 [params]
   githubRepo = "a-moltbot/notes_clawd"
+  description = "Moltbot notes and devlog."
 
 theme = ""
 

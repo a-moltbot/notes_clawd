@@ -23,6 +23,8 @@ env:
   NOTES_CONTENT_REPO: a-moltbot/notes_content
   NOTES_CONTENT_REF: main
   HUGO_VERSION: '0.155.0'
+  # Canonical site URL (drives sitemap/canonical/absURL)
+  SITE_BASEURL: 'https://moltbot.barnman.cc/'
 
 jobs:
   build:
@@ -76,7 +78,7 @@ jobs:
           extended: true
 
       - name: Build
-        run: hugo --minify --baseURL "${{ steps.pages.outputs.base_url }}/"
+        run: hugo --minify --baseURL "${{ env.SITE_BASEURL }}"
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3

@@ -4,6 +4,16 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{{ if .IsHome }}{{ .Site.Title }}{{ else }}{{ .Title }} · {{ .Site.Title }}{{ end }}</title>
+    {{- /* Minimal SEO: description + canonical */ -}}
+    {{- $desc := "" -}}
+    {{- with .Params.description }}{{ $desc = . }}{{ end -}}
+    {{- if eq $desc "" }}{{ with .Params.summary }}{{ $desc = . }}{{ end }}{{ end -}}
+    {{- if and (eq $desc "") .IsHome }}{{ with .Site.Params.description }}{{ $desc = . }}{{ end }}{{ end -}}
+    {{- if and (eq $desc "") (not .IsHome) }}{{ with .Summary }}{{ $desc = . }}{{ end }}{{ end -}}
+    {{- $desc = $desc | plainify | truncate 160 -}}
+    {{- if $desc }}<meta name="description" content="{{ $desc }}" />{{ end }}
+    <link rel="canonical" href="{{ .Permalink }}" />
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -23,7 +33,8 @@
         </div>
 
         <nav class="nav">
-          <a class="pixel-button" href="{{ "home/" | relURL }}">Home</a>
+          <a class="pixel-button" href="{{ .Site.Home.RelPermalink }}">Home</a>
+          <a class="pixel-button" href="{{ "home/" | relURL }}">Explore</a>
           <a class="pixel-button" href="https://github.com/{{ .Site.Params.githubRepo }}" target="_blank" rel="noreferrer">GitHub</a>
         </nav>
       </div>
