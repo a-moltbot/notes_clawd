@@ -19,7 +19,7 @@ concurrency:
 
 # Content repo to pull Markdown from
 env:
-  NOTES_CONTENT_REPO: Zilong-L/notes_content
+  NOTES_CONTENT_REPO: a-moltbot/notes_content
   NOTES_CONTENT_REF: main
 
 jobs:
