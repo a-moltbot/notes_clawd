@@ -15,7 +15,8 @@ permissions:
 
 concurrency:
   group: "pages"
-  cancel-in-progress: false
+  # Cancel older builds when a newer commit arrives (faster feedback, less wasted CI time)
+  cancel-in-progress: true
 
 # Content repo to pull Markdown from
 env:
@@ -35,6 +36,11 @@ jobs:
           repository: ${{ env.NOTES_CONTENT_REPO }}
           ref: ${{ env.NOTES_CONTENT_REF }}
           path: __notes_content
+          fetch-depth: 1
+          # Only pull the content/ tree to speed up clones as the repo grows
+          sparse-checkout: |
+            content
+          sparse-checkout-cone-mode: true
 
       - name: Sync content into Hugo site
         run: |
